@@ -63,7 +63,26 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return new List<int>(); // Placeholder
+                List<int> missingnums = new List<int>();
+                int n = nums.Length;
+        
+                for (int i = 0; i < n; i++)
+                {
+                    int index = Math.Abs(nums[i]) - 1;
+                    if (nums[index] > 0)
+                        nums[index] = -nums[index];
+                }
+        
+                for (int i = 0; i < n; i++)
+                {
+                    if (nums[i] > 0)
+                        missingnums.Add(i + 1);
+                }
+
+                return missingnums;
+                //Edge Cases
+                    //if all numbers are there, return emptylist
+                    //if nums is empty, return emptylist
             }
             catch (Exception)
             {
@@ -77,7 +96,23 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return new int[0]; // Placeholder
+                int[] separated = new int[nums.Length];
+                int even_index = 0;
+                int odd_index = nums.Length - 1;
+                
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] % 2 == 0)
+                        separated[even_index++] = nums[i];
+                    else
+                        separated[odd_index--] = nums[i];
+                }
+
+                return separated;
+                //Edge Cases
+                    //if all even or all odd, return same array
+                    //if one element, return same
+                    //if array is emprty, return empty array
             }
             catch (Exception)
             {
@@ -91,7 +126,19 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return new int[0]; // Placeholder
+                 Dictionary<int, int> map = new Dictionary<int, int>();
+                
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    int a = target - nums[i];
+                    if (map.ContainsKey(a))
+                        return new int[] { map[a], i };
+                    map[nums[i]] = i;
+                }
+                
+                return new int[0];
+                //Edge Cases
+                    //empty or only 1; return empty since no pairs possible
             }
             catch (Exception)
             {
@@ -105,7 +152,16 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return 0; // Placeholder
+                Array.Sort(nums);
+                int n = nums.Length;
+                int max1 = nums[n-1] * nums[n-2] * nums[n-3];
+                int max2 = nums[0] * nums[1] * nums[n-1];
+                
+                return Math.Max(max1, max2);
+                //Edge caese
+                    //max2 handles cases where 2 -ve can make a +ve
+                    //max1 used if only 2 elements
+                    //max1 used if all negative
             }
             catch (Exception)
             {
@@ -119,7 +175,19 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return "101010"; // Placeholder
+                if (decimalNumber == 0) return "0";
+                
+                string bin = "";
+                int num = decimalNumber;
+                while (num > 0)
+                {
+                    bin = (num % 2) + bin;
+                    num /= 2;
+                }
+                
+                return bin;
+                //Edge Cases
+                    //if 0; return 0
             }
             catch (Exception)
             {
@@ -133,7 +201,23 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return 0; // Placeholder
+                int l = 0, r = nums.Length - 1;
+                
+                while (l < r)
+                {
+                    int mid = l + (r - l) / 2;
+                    if (nums[mid] > nums[r])
+                        l = mid + 1;
+                    else
+                        r = mid;
+                }
+                
+                return nums[l];
+                //Edge Cases
+                    //1 element; return element
+                    //2+ elements; return min
+                    //all same; return first
+                    //in order; return first
             }
             catch (Exception)
             {
@@ -147,7 +231,23 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return false; // Placeholder
+                if (x < 0) return false;
+                if (x == 0) return true;
+                
+                string s_num = x.ToString();
+                int l = 0, r = s_num.Length - 1;
+                
+                while (l < r)
+                {
+                    if (s_num[l++] != s_num[r--])
+                        return false;
+                }
+                return true;
+                //Edge Cases
+                    //0; true
+                    //-ve; false
+                    //1 digit; true
+                    //not palindrome ; false
             }
             catch (Exception)
             {
@@ -161,7 +261,22 @@ namespace Assignment_2
             try
             {
                 // Write your code here
-                return 0; // Placeholder
+                if (n == 0) return 0;
+                if (n == 1) return 1;
+                
+                int last = 0, num = 1;
+                for (int i = 2; i <= n; i++)
+                {
+                    int next = last + num;
+                    last = num;
+                    num = next;
+                }
+
+                return num;
+                //Edge Cases
+                    //n=0; 0
+                    //n=1; 1
+                    //negatives; not necessary given the constraint 0<=n<=30
             }
             catch (Exception)
             {
